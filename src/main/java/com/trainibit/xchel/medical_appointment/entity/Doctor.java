@@ -23,7 +23,7 @@ public class Doctor {
     private Timestamp createdDate;
     @Column(name = "updated_date",insertable = false)
     private Timestamp updatedDate;
-    @Column(name = "cedula",insertable = false )
+    @Column(name = "cedula",insertable = false)
     private String cedula;
     @Column(name ="state", insertable = false)
     private Boolean state;

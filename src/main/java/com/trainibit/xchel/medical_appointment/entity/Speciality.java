@@ -23,6 +23,9 @@ public class Speciality {
     private Timestamp updatedDate;
     @Column(name="description",insertable = false,updatable = false )
     private String description;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "age_group", nullable = false)
+    private AgeGroup ageGroup;
     @Column(name = "sex",insertable = false)
     private Boolean sex;
     @Column(name = "state",insertable = false)

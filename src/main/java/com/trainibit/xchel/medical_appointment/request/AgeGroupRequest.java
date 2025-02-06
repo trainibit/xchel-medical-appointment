@@ -1,16 +1,17 @@
 package com.trainibit.xchel.medical_appointment.request;
 
 import jakarta.annotation.Nonnull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import org.antlr.v4.runtime.misc.NotNull;
 
 @Setter
 @Getter
 public class AgeGroupRequest {
-    @Nonnull
+    @NotBlank
     private String description;
-    @Nonnull
+    @NotNull
     private Boolean active;
 }

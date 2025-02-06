@@ -1,13 +1,12 @@
 package com.trainibit.xchel.medical_appointment.controller;
 
+import com.trainibit.xchel.medical_appointment.request.AgeGroupRequest;
 import com.trainibit.xchel.medical_appointment.response.AgeGroupResponse;
 import com.trainibit.xchel.medical_appointment.service.AgeGroupService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -28,6 +27,10 @@ public class AgeGroupController {
     @GetMapping("/{uuid}")
     public AgeGroupResponse getUserById(@PathVariable UUID uuid) {
         return ageGroupService.findByUuid(uuid);
+    }
+    @PostMapping
+    public AgeGroupResponse saveUser(@Valid @RequestBody AgeGroupRequest userRequest) {
+        return ageGroupService.save(userRequest);
     }
 
 

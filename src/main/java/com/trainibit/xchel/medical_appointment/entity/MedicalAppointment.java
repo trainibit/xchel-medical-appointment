@@ -25,6 +25,12 @@ public class MedicalAppointment {
     private Timestamp scheduledFor;
     @Column(name="rason",insertable = false)
     private String rason;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "stateAppointment", nullable = false)
+    private StateAppointment stateAppointment;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "doctor", nullable = false)
+    private Doctor doctor;
     @Column(name ="asisten",insertable = false)
     private String asisten;
     @Column(name ="state",insertable = false)

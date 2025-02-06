@@ -13,5 +13,5 @@ public class AgeGroupRequest {
     @NotBlank
     private String description;
     @NotNull
-    private Boolean active;
+    private Boolean state;
 }

@@ -3,6 +3,8 @@ package com.trainibit.xchel.medical_appointment.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -15,14 +17,16 @@ public class AgeGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name ="uuid",insertable = false)
+    @Column(name ="uuid")
     private UUID uuid;
-    @Column(name="created_date",insertable = false,updatable = false )
+    @Column(name="created_date")
+    @CreationTimestamp
     private Timestamp createdDate;
-    @Column(name = "updated_date",insertable = false)
+    @Column(name = "updated_date")
+    @UpdateTimestamp
     private Timestamp updatedDate;
-    @Column(name="description",insertable = false,updatable = false )
+    @Column(name="description")
     private String description;
-    @Column(name="state",insertable = false)
+    @Column(name="state")
     private Boolean state;
 }

@@ -34,8 +34,9 @@ public class AgeGroupServiceImpl implements AgeGroupService {
     @Override
     public AgeGroupResponse save(AgeGroupRequest ageGroupRequest) {
         AgeGroup ageGroup=ageGroupMapper.requestToEntity(ageGroupRequest);
-        AgeGroup savedAgeGroup=ageGroupRepository.save(ageGroup);
         ageGroup.setUuid(UUID.randomUUID());
+        AgeGroup savedAgeGroup=ageGroupRepository.save(ageGroup);
+
         return ageGroupMapper.entityToResponse(savedAgeGroup);
     }
 }

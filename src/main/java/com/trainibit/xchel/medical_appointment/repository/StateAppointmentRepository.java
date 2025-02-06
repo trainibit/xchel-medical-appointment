@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface StateAppointmentRepository extends JpaRepository<StateAppointment, Long> {
-    List<StateAppointment> findAllBy();
+    List<StateAppointment> findAll();
     StateAppointment findAllByUuid(UUID uuid);
 }

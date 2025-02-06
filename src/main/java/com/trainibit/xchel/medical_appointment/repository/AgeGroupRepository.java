@@ -9,7 +9,6 @@ import java.util.UUID;
 
 @Repository
 public interface AgeGroupRepository extends JpaRepository<AgeGroup,Long> {
-    List<AgeGroup> findAll();
     AgeGroup findByUuid(UUID uuid);
 
 }

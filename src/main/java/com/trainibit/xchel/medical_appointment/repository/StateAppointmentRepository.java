@@ -1,8 +1,13 @@
 package com.trainibit.xchel.medical_appointment.repository;
 
+
 import com.trainibit.xchel.medical_appointment.entity.StateAppointment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface StateAppointmentRepository extends JpaRepository<StateAppointment, Long> {
+import java.util.List;
+import java.util.UUID;
 
+public interface StateAppointmentRepository extends JpaRepository<StateAppointment, Long> {
+    List<StateAppointment> findAllBy();
+    StateAppointment findAllByUuid(UUID uuid);
 }

@@ -6,15 +6,13 @@ import lombok.Setter;
 import java.sql.Timestamp;
 import java.util.UUID;
 
+
 @Setter
 @Getter
-public class MedicalAppointmentResponse {
+public class StateAppointmentResponse {
     private UUID uuid;
     private Timestamp createdDate;
     private Timestamp updatedDate;
-    private Timestamp scheduledFor;
-    private String reason;
-    private String assistant;
+    private String description;
     private Boolean state;
-
 }

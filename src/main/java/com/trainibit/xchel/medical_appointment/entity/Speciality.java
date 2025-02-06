@@ -24,7 +24,7 @@ public class Speciality {
     @Column(name="description",insertable = false,updatable = false )
     private String description;
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "age_group", nullable = false)
+    @JoinColumn(name = "age_group_id", nullable = false)
     private AgeGroup ageGroup;
     @Column(name = "sex",insertable = false)
     private Boolean sex;

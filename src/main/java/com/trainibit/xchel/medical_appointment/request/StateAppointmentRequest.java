@@ -8,4 +8,5 @@ import lombok.Setter;
 public class StateAppointmentRequest {
     private String description;
     private boolean state;
+
 }

@@ -24,7 +24,7 @@ public class Doctor {
     @Column(name = "updated_date",insertable = false)
     private Timestamp updatedDate;
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "speciality", nullable = false)
+    @JoinColumn(name = "speciality_id", nullable = false)
     private Speciality speciality;
     @Column(name ="state", insertable = false)
     private Boolean state;

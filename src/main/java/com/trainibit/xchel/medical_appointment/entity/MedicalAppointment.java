@@ -23,16 +23,16 @@ public class MedicalAppointment {
     private Timestamp updatedDate;
     @Column(name="scheduled_for",insertable = false)
     private Timestamp scheduledFor;
-    @Column(name="rason",insertable = false)
-    private String rason;
+    @Column(name="reason",insertable = false)
+    private String reason;
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "stateAppointment", nullable = false)
+    @JoinColumn(name = "state_appointment_id", nullable = false)
     private StateAppointment stateAppointment;
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "doctor", nullable = false)
+    @JoinColumn(name = "doctor_id", nullable = false)
     private Doctor doctor;
-    @Column(name ="asisten",insertable = false)
-    private String asisten;
+    @Column(name ="assistant",insertable = false)
+    private String assistant;
     @Column(name ="state",insertable = false)
     private Boolean state;
 

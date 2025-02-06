@@ -11,7 +11,7 @@ spring:
       port: 6379
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://users.cdgwyyu2q3bz.us-east-2.rds.amazonaws.com:5432/xchel
+    url: jdbc:postgresql://users.cdgwyyu2q3bz.us-east-2.rds.amazonaws.com:5432/appointment
     username: postgres
     password: trainibit
   jpa:

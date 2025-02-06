@@ -12,7 +12,7 @@ public class DoctorResponse {
     private UUID uuid;
     private Timestamp createdDate;
     private Timestamp updatedDate;
-    private String cedula;
+    private String license;
     private Boolean state;
 
 }

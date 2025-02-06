@@ -23,9 +23,12 @@ public class Doctor {
     private Timestamp createdDate;
     @Column(name = "updated_date",insertable = false)
     private Timestamp updatedDate;
-    @Column(name = "cedula",insertable = false)
-    private String cedula;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "speciality", nullable = false)
+    private Speciality speciality;
     @Column(name ="state", insertable = false)
     private Boolean state;
+    @Column(name = "license",insertable = false)
+    private String license;
 
 }

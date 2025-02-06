@@ -25,8 +25,8 @@ public class MedicalAppointment {
     private Timestamp scheduledFor;
     @Column(name="rason",insertable = false)
     private String rason;
-    @Column(name ="asisten",insertable = false)
-    private String asisten;
+    @Column(name ="assistant",insertable = false)
+    private String assistant;
     @Column(name ="state",insertable = false)
     private Boolean state;
 

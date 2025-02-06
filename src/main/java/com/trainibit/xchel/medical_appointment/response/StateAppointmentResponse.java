@@ -8,11 +8,10 @@ import java.util.UUID;
 
 @Setter
 @Getter
-public class DoctorResponse {
+public class StateAppointmentResponse {
     private UUID uuid;
     private Timestamp createdDate;
     private Timestamp updatedDate;
-    private String license;
+    private String description;
     private Boolean state;
-
 }

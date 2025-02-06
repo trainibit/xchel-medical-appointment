@@ -6,6 +6,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class DoctorRequest {
-    private String cedula;
+    private String license;
     public Boolean state;
 }

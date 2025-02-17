@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/appointment")
+@RequestMapping("/age-group")
 public class AgeGroupController {
 
     @Autowired
@@ -26,6 +26,7 @@ public class AgeGroupController {
     }
     @GetMapping("/{uuid}")
     public AgeGroupResponse getUserById(@PathVariable UUID uuid) {
+
         return ageGroupService.findByUuid(uuid);
     }
     @PostMapping

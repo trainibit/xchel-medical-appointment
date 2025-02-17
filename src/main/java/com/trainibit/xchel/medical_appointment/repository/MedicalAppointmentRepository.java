@@ -9,6 +9,6 @@ import java.util.UUID;
 
 @Repository
 public interface MedicalAppointmentRepository extends JpaRepository<MedicalAppointment, Long> {
-    List<MedicalAppointment> findAll();
+
     MedicalAppointment findByUuid(UUID uuid);
 }

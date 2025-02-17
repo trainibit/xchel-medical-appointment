@@ -9,6 +9,7 @@ import com.trainibit.xchel.medical_appointment.service.AgeGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,4 +40,28 @@ public class AgeGroupServiceImpl implements AgeGroupService {
 
         return ageGroupMapper.entityToResponse(savedAgeGroup);
     }
+
+    @Override
+    public AgeGroupResponse update(UUID uuid, AgeGroupRequest ageGroupRequest) {
+        AgeGroup existentUser = ageGroupRepository.findByUuid(uuid);
+
+        existentUser.setDescription(
+                ageGroupRequest.getDescription() != null ? ageGroupRequest.getDescription() : existentUser.getDescription());
+        existentUser.setState(
+                ageGroupRequest.getState() != null ? ageGroupRequest.getState() : existentUser.getState());
+
+        Timestamp currentTimeStamp = new Timestamp(System.currentTimeMillis());
+        existentUser.setUpdatedDate(currentTimeStamp);
+
+        return ageGroupMapper.entityToResponse(ageGroupRepository.save(existentUser));
+    }
+
+    @Override
+    public AgeGroupResponse delete(UUID uuid) {
+        AgeGroup userToDelete = ageGroupRepository.findByUuid(uuid);
+        ageGroupRepository.delete(userToDelete);
+        return ageGroupMapper.entityToResponse(userToDelete);
+    }
+
+
 }

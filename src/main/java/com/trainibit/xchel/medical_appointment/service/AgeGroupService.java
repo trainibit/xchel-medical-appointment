@@ -11,4 +11,6 @@ public interface AgeGroupService {
     List<AgeGroupResponse> findAll();
     AgeGroupResponse findByUuid(UUID uuid);
     AgeGroupResponse save(AgeGroupRequest ageGroupRequest);
+    AgeGroupResponse update(UUID uuid,AgeGroupRequest ageGroupRequest);
+    AgeGroupResponse delete(UUID uuid);
 }

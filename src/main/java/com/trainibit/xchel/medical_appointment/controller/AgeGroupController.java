@@ -33,7 +33,12 @@ public class AgeGroupController {
     public AgeGroupResponse saveUser(@Valid @RequestBody AgeGroupRequest userRequest) {
         return ageGroupService.save(userRequest);
     }
-
-
-
+    @PutMapping("/{uuid}")
+    public ResponseEntity<AgeGroupResponse> updateUser(@PathVariable UUID uuid ,@RequestBody AgeGroupRequest userRequest) {
+        return ResponseEntity.ok(ageGroupService.update(uuid, userRequest));
+    }
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<AgeGroupResponse> deleteUser(@PathVariable UUID uuid) {
+        return ResponseEntity.status(204).body(ageGroupService.delete(uuid));
+    }
 }

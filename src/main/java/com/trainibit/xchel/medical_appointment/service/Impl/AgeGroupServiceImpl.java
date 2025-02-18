@@ -37,7 +37,6 @@ public class AgeGroupServiceImpl implements AgeGroupService {
         AgeGroup ageGroup=ageGroupMapper.requestToEntity(ageGroupRequest);
         ageGroup.setUuid(UUID.randomUUID());
         AgeGroup savedAgeGroup=ageGroupRepository.save(ageGroup);
-
         return ageGroupMapper.entityToResponse(savedAgeGroup);
     }
 

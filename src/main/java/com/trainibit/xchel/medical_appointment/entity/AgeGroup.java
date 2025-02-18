@@ -15,18 +15,23 @@ import java.util.UUID;
 public class AgeGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     @Column(name ="uuid")
     private UUID uuid;
+
     @Column(name="created_date")
     @CreationTimestamp
     private Timestamp createdDate;
+
     @Column(name = "updated_date")
     @UpdateTimestamp
     private Timestamp updatedDate;
+
     @Column(name="description")
     private String description;
+
     @Column(name="state")
     private Boolean state;
 }

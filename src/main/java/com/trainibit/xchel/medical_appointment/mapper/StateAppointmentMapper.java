@@ -10,6 +10,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface StateAppointmentMapper {
     StateAppointmentResponse entityToResponse(StateAppointment stateAppointment);
-    List<StateAppointmentResponse> entityListToResponseList(List<StateAppointment> stateAppointmentList);
+    List<StateAppointmentResponse> entityListToResponseList(List<StateAppointment> userList);
     StateAppointment requestToEntity(StateAppointmentRequest stateAppointmentRequest);
 }

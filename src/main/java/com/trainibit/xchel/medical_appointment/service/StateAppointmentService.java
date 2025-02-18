@@ -9,6 +9,6 @@ import java.util.UUID;
 
 public interface StateAppointmentService {
     List<StateAppointmentResponse> findAll();
-    StateAppointmentResponse findByUUID(UUID uuid);
+    StateAppointmentResponse findByUuid(UUID uuid);
     StateAppointmentResponse save(StateAppointmentRequest stateAppointmentRequest);
 }

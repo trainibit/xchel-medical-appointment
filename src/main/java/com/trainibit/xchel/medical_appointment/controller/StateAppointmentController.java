@@ -3,6 +3,7 @@ package com.trainibit.xchel.medical_appointment.controller;
 import com.trainibit.xchel.medical_appointment.request.StateAppointmentRequest;
 import com.trainibit.xchel.medical_appointment.response.StateAppointmentResponse;
 import com.trainibit.xchel.medical_appointment.service.StateAppointmentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("/state-appointment")
 @RestController
-public class StateAppointment {
+@RequestMapping("/state-appointment")
+public class StateAppointmentController {
     @Autowired
     private StateAppointmentService stateAppointmentService;
 
@@ -23,11 +24,11 @@ public class StateAppointment {
 
     @GetMapping("/{uuid}")
     public StateAppointmentResponse getUserById (@PathVariable UUID uuid) {
-        return stateAppointmentService.findByUUID(uuid);
+        return stateAppointmentService.findByUuid(uuid);
     }
 
     @PostMapping
-    public StateAppointmentResponse saveUser(@RequestBody StateAppointmentRequest stateAppointmentRequest) {
-        return stateAppointmentService.save(stateAppointmentRequest);
+    public StateAppointmentResponse saveUser(@Valid @RequestBody StateAppointmentRequest userRequest) {
+        return stateAppointmentService.save(userRequest);
     }
 }

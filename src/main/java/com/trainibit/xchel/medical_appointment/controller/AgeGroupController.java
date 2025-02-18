@@ -29,6 +29,7 @@ public class AgeGroupController {
 
         return ageGroupService.findByUuid(uuid);
     }
+
     @PostMapping
     public AgeGroupResponse saveUser(@Valid @RequestBody AgeGroupRequest userRequest) {
         return ageGroupService.save(userRequest);

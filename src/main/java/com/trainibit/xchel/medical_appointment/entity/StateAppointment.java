@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 import java.util.UUID;
 @Setter
 @Getter
-@Entity(name= "State_appointment")
+@Entity(name = "state_appointment")
 public class StateAppointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

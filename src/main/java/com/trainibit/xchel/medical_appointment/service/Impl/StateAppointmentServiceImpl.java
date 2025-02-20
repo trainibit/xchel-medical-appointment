@@ -1,6 +1,7 @@
 package com.trainibit.xchel.medical_appointment.service.Impl;
 
 
+import com.trainibit.xchel.medical_appointment.entity.AgeGroup;
 import com.trainibit.xchel.medical_appointment.entity.StateAppointment;
 import com.trainibit.xchel.medical_appointment.mapper.StateAppointmentMapper;
 import com.trainibit.xchel.medical_appointment.repository.StateAppointmentRepository;
@@ -10,6 +11,7 @@ import com.trainibit.xchel.medical_appointment.service.StateAppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,9 +36,24 @@ public class StateAppointmentServiceImpl implements StateAppointmentService {
 
     @Override
     public StateAppointmentResponse save(StateAppointmentRequest stateAppointmentRequest) {
-        StateAppointment stateAppointment = stateAppointmentMapper.requestToEntity(stateAppointmentRequest);
+        StateAppointment stateAppointment=stateAppointmentMapper.requestToEntity(stateAppointmentRequest);
         stateAppointment.setUuid(UUID.randomUUID());
-        StateAppointment savedStateAppointment = stateAppointmentRepository.save(stateAppointment);
+        StateAppointment savedStateAppointment=stateAppointmentRepository.save(stateAppointment);
         return stateAppointmentMapper.entityToResponse(savedStateAppointment);
+    }
+
+    @Override
+    public StateAppointmentResponse update(UUID uuid, StateAppointmentRequest stateAppointmentRequest) {
+        StateAppointment existentUser = stateAppointmentRepository.findByUuid(uuid);
+
+        existentUser.setDescription(
+                stateAppointmentRequest.getDescription() != null ? stateAppointmentRequest.getDescription() : existentUser.getDescription());
+        existentUser.setState(
+                stateAppointmentRequest.getState() != null ? stateAppointmentRequest.getState() : existentUser.getState());
+
+        Timestamp currentTimeStamp = new Timestamp(System.currentTimeMillis());
+        existentUser.setUpdatedDate(currentTimeStamp);
+
+        return stateAppointmentMapper.entityToResponse(stateAppointmentRepository.save(existentUser));
     }
 }

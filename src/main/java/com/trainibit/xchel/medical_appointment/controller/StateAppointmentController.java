@@ -14,6 +14,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/state-appointment")
 public class StateAppointmentController {
+
     @Autowired
     private StateAppointmentService stateAppointmentService;
 
@@ -30,5 +31,9 @@ public class StateAppointmentController {
     @PostMapping
     public StateAppointmentResponse saveUser(@Valid @RequestBody StateAppointmentRequest userRequest) {
         return stateAppointmentService.save(userRequest);
+    }
+    @PutMapping("/{uuid}")
+    public ResponseEntity<StateAppointmentResponse> updateUser(@PathVariable UUID uuid, @RequestBody StateAppointmentRequest userRequest) {
+        return ResponseEntity.ok(stateAppointmentService.update(uuid, userRequest));
     }
 }

@@ -11,4 +11,5 @@ public interface StateAppointmentService {
     List<StateAppointmentResponse> findAll();
     StateAppointmentResponse findByUuid(UUID uuid);
     StateAppointmentResponse save(StateAppointmentRequest stateAppointmentRequest);
+    StateAppointmentResponse update(UUID uuid,StateAppointmentRequest stateAppointmentRequest);
 }

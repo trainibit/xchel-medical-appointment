@@ -2,7 +2,9 @@ package com.trainibit.xchel.medical_appointment.service.Impl;
 
 import com.trainibit.xchel.medical_appointment.entity.MedicalAppointment;
 import com.trainibit.xchel.medical_appointment.mapper.MedicalAppointmentMapper;
+import com.trainibit.xchel.medical_appointment.repository.DoctorRepository;
 import com.trainibit.xchel.medical_appointment.repository.MedicalAppointmentRepository;
+import com.trainibit.xchel.medical_appointment.repository.StateAppointmentRepository;
 import com.trainibit.xchel.medical_appointment.request.MedicalAppointmentRequest;
 import com.trainibit.xchel.medical_appointment.response.MedicalAppointmentResponse;
 import com.trainibit.xchel.medical_appointment.service.MedicalAppointmentService;
@@ -21,6 +23,12 @@ public class MedicalAppontmentServiceImpl implements MedicalAppointmentService {
     @Autowired
     private MedicalAppointmentMapper medicalAppointmentMapper;
 
+    @Autowired
+    private StateAppointmentRepository stateAppointmentRepository;
+
+    @Autowired
+    private DoctorRepository doctorRepository;
+
     @Override
     public List<MedicalAppointmentResponse> findAll() {
         return medicalAppointmentMapper.entityListToResponseList(medicalAppointmentRepository.findAll());
@@ -34,6 +42,12 @@ public class MedicalAppontmentServiceImpl implements MedicalAppointmentService {
     @Override
     public MedicalAppointmentResponse save(MedicalAppointmentRequest medicalAppointmentRequest) {
         MedicalAppointment medicalAppointment = medicalAppointmentMapper.requestToEntity(medicalAppointmentRequest);
+        medicalAppointment.setStateAppointment(
+                stateAppointmentRepository.findByUuid(UUID.fromString(medicalAppointmentRequest.getStateAppointmentUuid()))
+        );
+        medicalAppointment.setDoctor(
+                doctorRepository.findByUuid(UUID.fromString(medicalAppointmentRequest.getDoctorUuid()))
+        );
         medicalAppointment.setUuid(UUID.randomUUID());
         MedicalAppointment saveMedicalAppointment = medicalAppointmentRepository.save(medicalAppointment);
         return medicalAppointmentMapper.entityToResponse(medicalAppointment);

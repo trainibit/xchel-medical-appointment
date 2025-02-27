@@ -3,6 +3,7 @@ package com.trainibit.xchel.medical_appointment.service.Impl;
 import com.trainibit.xchel.medical_appointment.entity.Doctor;
 import com.trainibit.xchel.medical_appointment.mapper.DoctorMapper;
 import com.trainibit.xchel.medical_appointment.repository.DoctorRepository;
+import com.trainibit.xchel.medical_appointment.repository.SpecialityRepository;
 import com.trainibit.xchel.medical_appointment.request.DoctorRequest;
 import com.trainibit.xchel.medical_appointment.response.DoctorResponse;
 import com.trainibit.xchel.medical_appointment.service.DoctorService;
@@ -21,6 +22,9 @@ public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private DoctorMapper doctorMapper;
 
+    @Autowired
+    private SpecialityRepository specialityRepository;
+
     @Override
     public List<DoctorResponse> findAll() {
         return doctorMapper.entitylistToResponseList(doctorRepository.findAll());
@@ -35,6 +39,9 @@ public class DoctorServiceImpl implements DoctorService {
     public DoctorResponse save(DoctorRequest doctorRequest) {
         Doctor doctor = doctorMapper.requestToEntity(doctorRequest);
         doctor.setUuid(UUID.randomUUID());
+        doctor.setSpeciality(
+                specialityRepository.findByUuid(UUID.fromString(doctorRequest.getSpecialtyUuid()))
+        );
         return doctorMapper.entityToResponse(doctorRepository.save(doctor));
     }
 }

@@ -3,6 +3,9 @@ package com.trainibit.xchel.medical_appointment.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -16,19 +19,27 @@ public class Doctor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "uuid", nullable = false)
+    @Column(name = "uuid")
     private UUID uuid;
 
-    @Column(name = "created_date", insertable = false, updatable = false)
+    @Column(name = "created_date")
+    @CreationTimestamp
     private Timestamp createdDate;
-    @Column(name = "updated_date",insertable = false)
+
+
+    @Column(name = "updated_date")
+    @UpdateTimestamp
     private Timestamp updatedDate;
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "speciality_id", nullable = false)
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "speciality_id")
     private Speciality speciality;
-    @Column(name ="state", insertable = false)
+
+    @Column(name ="state")
     private Boolean state;
-    @Column(name = "license",insertable = false)
+
+    @Column(name = "license")
     private String license;
 
 }

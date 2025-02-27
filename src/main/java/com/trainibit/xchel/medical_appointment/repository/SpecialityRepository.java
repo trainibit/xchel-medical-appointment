@@ -9,7 +9,6 @@ import java.util.UUID;
 
 @Repository
 public interface SpecialityRepository extends JpaRepository <Speciality, Long> {
-    List<Speciality> findAll();
     Speciality findByUuid(UUID uuid);
 
 

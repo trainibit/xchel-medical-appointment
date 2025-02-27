@@ -36,4 +36,8 @@ public class StateAppointmentController {
     public ResponseEntity<StateAppointmentResponse> updateUser(@PathVariable UUID uuid, @RequestBody StateAppointmentRequest userRequest) {
         return ResponseEntity.ok(stateAppointmentService.update(uuid, userRequest));
     }
+    @DeleteMapping("/{uuid}")
+public ResponseEntity<StateAppointmentResponse> deleteUser(@PathVariable UUID uuid) {
+        return ResponseEntity.status(204).body(stateAppointmentService.delete(uuid));
+    }
 }

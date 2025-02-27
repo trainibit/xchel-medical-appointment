@@ -3,6 +3,8 @@ package com.trainibit.xchel.medical_appointment.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -15,25 +17,35 @@ public class MedicalAppointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "uuid", insertable = false)
+    @Column(name = "uuid")
     private UUID uuid;
-    @Column(name = "created_date", insertable = false, updatable = false)
+
+    @Column(name = "created_date")
+    @CreationTimestamp
     private Timestamp createdDate;
-    @Column(name = "updated_date", insertable = false)
+
+    @Column(name = "updated_date")
+    @UpdateTimestamp
     private Timestamp updatedDate;
-    @Column(name = "scheduled_for", insertable = false)
+
+    @Column(name = "scheduled_for")
     private Timestamp scheduledFor;
-    @Column(name = "reason", insertable = false)
+
+    @Column(name = "reason")
     private String reason;
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "state_appointment_id", nullable = false)
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "state_appointment_id")
     private StateAppointment stateAppointment;
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "doctor_id", nullable = false)
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "doctor_id")
     private Doctor doctor;
-    @Column(name = "assistant", insertable = false)
+
+    @Column(name = "assistant")
     private String assistant;
-    @Column(name = "state", insertable = false)
+
+    @Column(name = "state")
     private Boolean state;
 
 }

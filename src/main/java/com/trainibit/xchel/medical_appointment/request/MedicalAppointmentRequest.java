@@ -10,6 +10,8 @@ import java.sql.Timestamp;
 public class MedicalAppointmentRequest {
     private Timestamp scheduledFor;
     private String reason;
+    private String stateAppointmentUuid;
+    private String doctorUuid;
     private String assistant;
     private Boolean state;
 }

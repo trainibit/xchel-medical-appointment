@@ -11,4 +11,5 @@ public interface SpecialityService {
     List<SpecialityResponse> findAll();
     SpecialityResponse findByUuid(UUID uuid);
     SpecialityResponse save(SpecialityRequest specialityRequest);
+    SpecialityResponse update(UUID uuid,SpecialityRequest specialityRequest);
 }

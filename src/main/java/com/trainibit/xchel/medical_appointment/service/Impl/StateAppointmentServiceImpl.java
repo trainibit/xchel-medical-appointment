@@ -56,4 +56,11 @@ public class StateAppointmentServiceImpl implements StateAppointmentService {
 
         return stateAppointmentMapper.entityToResponse(stateAppointmentRepository.save(existentUser));
     }
+
+    @Override
+    public StateAppointmentResponse delete(UUID uuid) {
+        StateAppointment userToDelete = stateAppointmentRepository.findByUuid(uuid);
+        stateAppointmentRepository.delete(userToDelete);
+        return stateAppointmentMapper.entityToResponse(userToDelete);
+    }
 }

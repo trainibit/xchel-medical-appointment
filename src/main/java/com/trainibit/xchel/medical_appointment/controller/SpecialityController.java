@@ -36,4 +36,13 @@ public class SpecialityController {
     public SpecialityResponse saveUser(@RequestBody SpecialityRequest specialityRequest) {
         return specialityService.save(specialityRequest);
     }
+    @PutMapping("/{uuid}")
+    public ResponseEntity<SpecialityResponse> updateUser(@PathVariable UUID uuid, @RequestBody SpecialityRequest specialityRequest) {
+        return ResponseEntity.ok(specialityService.update(uuid, specialityRequest));
+    }
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<SpecialityResponse> deleteUser(@PathVariable UUID uuid) {
+        return ResponseEntity.status(204).body(specialityService.delete(uuid));
+    }
+
 }

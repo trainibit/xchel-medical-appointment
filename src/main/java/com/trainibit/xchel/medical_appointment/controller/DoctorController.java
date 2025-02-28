@@ -30,4 +30,8 @@ public class DoctorController {
     public DoctorResponse saveUser(@RequestBody DoctorRequest doctorRequest) {
         return doctorService.save(doctorRequest);
     }
+    @PutMapping("/{uuid}")
+    public ResponseEntity<DoctorResponse> updateUser(@PathVariable UUID uuid, @RequestBody DoctorRequest doctorRequest) {
+        return ResponseEntity.ok(doctorService.update(uuid, doctorRequest));
+    }
 }

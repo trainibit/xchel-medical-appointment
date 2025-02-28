@@ -12,4 +12,5 @@ public interface SpecialityRepository extends JpaRepository <Speciality, Long> {
     Speciality findByUuid(UUID uuid);
 
 
+    Speciality getSpecialityByUuid(UUID uuid);
 }

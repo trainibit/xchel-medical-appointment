@@ -12,4 +12,5 @@ public interface SpecialityService {
     SpecialityResponse findByUuid(UUID uuid);
     SpecialityResponse save(SpecialityRequest specialityRequest);
     SpecialityResponse update(UUID uuid,SpecialityRequest specialityRequest);
+    SpecialityResponse delete(UUID uuid);
 }

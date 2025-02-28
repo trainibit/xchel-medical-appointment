@@ -10,6 +10,7 @@ import com.trainibit.xchel.medical_appointment.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,5 +44,27 @@ public class DoctorServiceImpl implements DoctorService {
                 specialityRepository.findByUuid(UUID.fromString(doctorRequest.getSpecialtyUuid()))
         );
         return doctorMapper.entityToResponse(doctorRepository.save(doctor));
+    }
+
+    @Override
+    public DoctorResponse update(UUID uuid, DoctorRequest doctorRequest) {
+        Doctor existentUser = doctorRepository.findByUuid(uuid);
+        existentUser.setLicense(
+                doctorRequest.getLicense() != null ? doctorRequest.getLicense() : existentUser.getLicense());
+
+        existentUser.setState(
+                doctorRequest.getState() != null ? doctorRequest.getState() : existentUser.getState()
+        );
+
+        existentUser.setSpeciality(
+                doctorRequest.getSpecialtyUuid() != null
+                        ? specialityRepository.getSpecialityByUuid(UUID.fromString(doctorRequest.getSpecialtyUuid()))
+                        : existentUser.getSpeciality());
+
+
+        Timestamp currentTimeStamp = new Timestamp(System.currentTimeMillis());
+        existentUser.setUpdatedDate(currentTimeStamp);
+
+        return doctorMapper.entityToResponse(doctorRepository.save(existentUser));
     }
 }

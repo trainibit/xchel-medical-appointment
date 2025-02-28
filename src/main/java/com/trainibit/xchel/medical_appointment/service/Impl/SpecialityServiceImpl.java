@@ -61,12 +61,23 @@ public class SpecialityServiceImpl implements SpecialityService {
 
         existentUser.setState(
                 specialityRequest.getState() != null ? specialityRequest.getState() : existentUser.getState());
-//        existentUser.setAgeGroup(
-//                specialityRequest.getAgeGroupUuid() != null ? specialityRequest.getAgeGroupUuid() : existentUser.getAgeGroup());
+
+        existentUser.setAgeGroup(
+                specialityRequest.getAgeGroupUuid() != null
+                        ? ageGroupRepository.getAgeGroupsByUuid(UUID.fromString(specialityRequest.getAgeGroupUuid()))
+                        : existentUser.getAgeGroup());
+
 
         Timestamp currentTimeStamp = new Timestamp(System.currentTimeMillis());
         existentUser.setUpdatedDate(currentTimeStamp);
 
         return specialityMapper.entityToResponse(specialityRepository.save(existentUser));
+    }
+
+    @Override
+    public SpecialityResponse delete(UUID uuid) {
+        Speciality userToDelete = specialityRepository.findByUuid(uuid);
+        specialityRepository.delete(userToDelete);
+        return specialityMapper.entityToResponse(userToDelete);
     }
 }

@@ -11,6 +11,7 @@ import com.trainibit.xchel.medical_appointment.service.MedicalAppointmentService
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,14 +43,62 @@ public class MedicalAppontmentServiceImpl implements MedicalAppointmentService {
     @Override
     public MedicalAppointmentResponse save(MedicalAppointmentRequest medicalAppointmentRequest) {
         MedicalAppointment medicalAppointment = medicalAppointmentMapper.requestToEntity(medicalAppointmentRequest);
+
+        medicalAppointment.setUuid(UUID.randomUUID());
+
         medicalAppointment.setStateAppointment(
                 stateAppointmentRepository.findByUuid(UUID.fromString(medicalAppointmentRequest.getStateAppointmentUuid()))
         );
         medicalAppointment.setDoctor(
                 doctorRepository.findByUuid(UUID.fromString(medicalAppointmentRequest.getDoctorUuid()))
         );
-        medicalAppointment.setUuid(UUID.randomUUID());
+
         MedicalAppointment saveMedicalAppointment = medicalAppointmentRepository.save(medicalAppointment);
+        return medicalAppointmentMapper.entityToResponse(saveMedicalAppointment);
+    }
+
+    @Override
+    public MedicalAppointmentResponse update(UUID uuid, MedicalAppointmentRequest medicalAppointmentRequest) {
+        MedicalAppointment existentUser= medicalAppointmentRepository.findByUuid(uuid);
+
+        existentUser.setScheduledFor(
+                medicalAppointmentRequest.getScheduledFor() != null ? medicalAppointmentRequest.getScheduledFor() : existentUser.getScheduledFor());
+        existentUser.setReason(
+                medicalAppointmentRequest.getReason() != null ? medicalAppointmentRequest.getReason() : existentUser.getReason()
+        );
+        existentUser.setAssistant(
+                medicalAppointmentRequest.getAssistant() != null ? medicalAppointmentRequest.getAssistant() : existentUser.getAssistant()
+        );
+        existentUser.setState(
+                medicalAppointmentRequest.getState() != null ? medicalAppointmentRequest.getState() : existentUser.getState()
+        );
+
+        existentUser.setStateAppointment(
+                medicalAppointmentRequest.getStateAppointmentUuid() != null
+                        ? stateAppointmentRepository.getStateAppointmentByUuid(UUID.fromString(medicalAppointmentRequest.getStateAppointmentUuid()))
+                        : existentUser.getStateAppointment()
+        );
+
+        existentUser.setDoctor(
+                medicalAppointmentRequest.getDoctorUuid() != null
+                        ? doctorRepository.getDoctorByUuid(UUID.fromString(medicalAppointmentRequest.getDoctorUuid()))
+                        : existentUser.getDoctor()
+        );
+
+
+
+
+
+        Timestamp currentTimeStamp = new Timestamp(System.currentTimeMillis());
+        existentUser.setUpdatedDate(currentTimeStamp);
+
+        return medicalAppointmentMapper.entityToResponse(medicalAppointmentRepository.save(existentUser));
+    }
+
+    @Override
+    public MedicalAppointmentResponse delete(UUID uuid) {
+        MedicalAppointment medicalAppointment = medicalAppointmentRepository.findByUuid(uuid);
+        medicalAppointmentRepository.delete(medicalAppointment);
         return medicalAppointmentMapper.entityToResponse(medicalAppointment);
     }
 }

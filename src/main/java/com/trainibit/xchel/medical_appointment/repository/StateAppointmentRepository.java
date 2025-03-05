@@ -11,4 +11,6 @@ import java.util.UUID;
 @Repository
 public interface StateAppointmentRepository extends JpaRepository<StateAppointment,Long> {
     StateAppointment findByUuid(UUID uuid);
+
+    StateAppointment getStateAppointmentByUuid(UUID uuid);
 }

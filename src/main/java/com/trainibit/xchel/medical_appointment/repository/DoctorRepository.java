@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
     Doctor findByUuid(UUID uuid);
+
+    Doctor getDoctorByUuid(UUID uuid);
 }

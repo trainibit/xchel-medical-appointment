@@ -34,4 +34,9 @@ public class DoctorController {
     public ResponseEntity<DoctorResponse> updateUser(@PathVariable UUID uuid, @RequestBody DoctorRequest doctorRequest) {
         return ResponseEntity.ok(doctorService.update(uuid, doctorRequest));
     }
+
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<DoctorResponse> deleteUser(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(doctorService.delete(uuid));
+    }
 }

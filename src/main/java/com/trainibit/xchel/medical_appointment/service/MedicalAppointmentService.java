@@ -11,4 +11,6 @@ public interface MedicalAppointmentService {
     List<MedicalAppointmentResponse> findAll();
     MedicalAppointmentResponse findByUuid(UUID uuid);
     MedicalAppointmentResponse save(MedicalAppointmentRequest medicalAppointmentRequest);
+    MedicalAppointmentResponse update(UUID uuid,MedicalAppointmentRequest medicalAppointmentRequest);
+    MedicalAppointmentResponse delete(UUID uuid);
 }

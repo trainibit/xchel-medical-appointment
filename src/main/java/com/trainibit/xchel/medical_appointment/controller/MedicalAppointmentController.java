@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,6 +30,15 @@ public class MedicalAppointmentController {
     @PostMapping
     public MedicalAppointmentResponse saveUser(@RequestBody MedicalAppointmentRequest medicalAppointmentRequest) {
         return medicalAppointmentService.save(medicalAppointmentRequest);
+    }
+
+    @PutMapping("/{uuid}")
+    public ResponseEntity<MedicalAppointmentResponse> updateUser(@PathVariable UUID uuid, @RequestBody MedicalAppointmentRequest medicalAppointmentRequest) {
+        return ResponseEntity.ok(medicalAppointmentService.update(uuid, medicalAppointmentRequest));
+    }
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<MedicalAppointmentResponse> deleteUser(@PathVariable UUID uuid) {
+        return ResponseEntity.status(200).body(medicalAppointmentService.delete(uuid));
     }
 }
 

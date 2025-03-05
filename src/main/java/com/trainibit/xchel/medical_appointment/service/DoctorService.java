@@ -12,4 +12,5 @@ public interface DoctorService {
     DoctorResponse findByUuid(UUID uuid);
     DoctorResponse save(DoctorRequest doctorRequest);
     DoctorResponse update(UUID uuid,DoctorRequest doctorRequest);
+    DoctorResponse delete(UUID uuid);
 }

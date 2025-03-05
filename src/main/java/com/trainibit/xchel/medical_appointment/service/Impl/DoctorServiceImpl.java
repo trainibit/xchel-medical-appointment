@@ -67,4 +67,11 @@ public class DoctorServiceImpl implements DoctorService {
 
         return doctorMapper.entityToResponse(doctorRepository.save(existentUser));
     }
+
+    @Override
+    public DoctorResponse delete(UUID uuid) {
+        Doctor deleteUser = doctorRepository.findByUuid(uuid);
+        doctorRepository.delete(deleteUser);
+        return doctorMapper.entityToResponse(deleteUser);
+    }
 }

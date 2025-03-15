@@ -13,6 +13,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/age-group")
+@CrossOrigin(origins = "http://localhost:4200")  // Permite solicitudes desde el frontend
 public class AgeGroupController {
 
     @Autowired

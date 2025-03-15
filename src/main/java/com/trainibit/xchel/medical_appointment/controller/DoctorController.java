@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/doctor")
+@CrossOrigin(origins = "http://localhost:4200")  // Permite solicitudes desde el frontend
 @RestController
 public class DoctorController {
     @Autowired

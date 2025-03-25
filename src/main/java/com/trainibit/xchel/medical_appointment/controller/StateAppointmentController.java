@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")  // Permite solicitudes desde el frontend
+
 @RequestMapping("/state-appointment")
 public class StateAppointmentController {
 

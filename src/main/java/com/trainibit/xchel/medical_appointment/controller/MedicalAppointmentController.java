@@ -14,6 +14,8 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/medical-appointment")
+@CrossOrigin(origins = "http://localhost:4200")  // Permite solicitudes desde el frontend
+
 public class MedicalAppointmentController {
 
     @Autowired

@@ -13,4 +13,7 @@ public interface DoctorService {
     DoctorResponse save(DoctorRequest doctorRequest);
     DoctorResponse update(UUID uuid,DoctorRequest doctorRequest);
     DoctorResponse delete(UUID uuid);
+    DoctorResponse createDoctor(String specialtyUuid,String license,Boolean state);
+    DoctorResponse updateDoctor(UUID uuid,String specialtyUuid,String license,Boolean state);
+    DoctorResponse deleteDoctor(UUID uuid);
 }

@@ -5,9 +5,11 @@ import com.trainibit.xchel.medical_appointment.mapper.DoctorMapper;
 import com.trainibit.xchel.medical_appointment.repository.DoctorRepository;
 import com.trainibit.xchel.medical_appointment.repository.SpecialityRepository;
 import com.trainibit.xchel.medical_appointment.request.DoctorRequest;
+import com.trainibit.xchel.medical_appointment.response.AgeGroupResponse;
 import com.trainibit.xchel.medical_appointment.response.DoctorResponse;
 import com.trainibit.xchel.medical_appointment.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -26,8 +28,13 @@ public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private SpecialityRepository specialityRepository;
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate; // Se mantiene la inyección con @Autowired
+
+
     @Override
     public List<DoctorResponse> findAll() {
+
         return doctorMapper.entitylistToResponseList(doctorRepository.findAll());
     }
 
@@ -73,5 +80,42 @@ public class DoctorServiceImpl implements DoctorService {
         Doctor deleteUser = doctorRepository.findByUuid(uuid);
         doctorRepository.delete(deleteUser);
         return doctorMapper.entityToResponse(deleteUser);
+    }
+
+    @Override
+    public DoctorResponse createDoctor(String specialtyUuid, String license, Boolean state) {
+        String sql = "CALL create_doctor(?::uuid, ?, ?)";
+        jdbcTemplate.update(sql, specialtyUuid, license, state);
+
+        DoctorResponse response = new DoctorResponse();
+        response.setSpecialtyUuid(specialtyUuid);
+        response.setLicense(license);
+        response.setState(state);
+        return response;
+    }
+
+
+
+    @Override
+    public DoctorResponse updateDoctor(UUID uuid, String specialtyUuid, String license, Boolean state) {
+        String sql = "CALL update_doctor(?, ?::uuid, ?, ?)";
+        jdbcTemplate.update(sql, uuid, specialtyUuid, license, state);
+
+        DoctorResponse response = new DoctorResponse();
+        response.setSpecialtyUuid(specialtyUuid);
+        response.setLicense(license);
+        response.setState(state);
+        return response;
+    }
+
+
+    @Override
+    public DoctorResponse deleteDoctor(UUID uuid) {
+        String sql = "CALL delete_doctor(CAST(? AS UUID))";
+        jdbcTemplate.update(sql, uuid);
+
+        DoctorResponse response = new DoctorResponse();
+
+        return response;
     }
 }

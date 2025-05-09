@@ -2,6 +2,7 @@ package com.trainibit.xchel.medical_appointment.controller;
 
 import com.trainibit.xchel.medical_appointment.request.AgeGroupRequest;
 import com.trainibit.xchel.medical_appointment.response.AgeGroupResponse;
+import com.trainibit.xchel.medical_appointment.response.StateAppointmentResponse;
 import com.trainibit.xchel.medical_appointment.service.AgeGroupService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,4 +45,24 @@ public class AgeGroupController {
     public ResponseEntity<AgeGroupResponse> deleteUser(@PathVariable UUID uuid) {
         return ResponseEntity.status(204).body(ageGroupService.delete(uuid));
     }
+
+    @PutMapping("/procedeupdate/{uuid}")
+    public ResponseEntity<AgeGroupResponse> updateAgeGroup(
+            @PathVariable UUID uuid,
+            @RequestParam String description,
+            @RequestParam Boolean state) {
+        return ResponseEntity.ok(ageGroupService.updateAgeGroup(uuid, description, state));
+    }
+    @DeleteMapping("/precededelete/{uuid}")
+    public ResponseEntity<AgeGroupResponse> deleteAge(@PathVariable UUID uuid) {
+        return ResponseEntity.ok(ageGroupService.deleteAgeGroup(uuid));
+    }
+
+    @PostMapping("/procedecreate")
+    public ResponseEntity<AgeGroupResponse> createAgeGroup(
+            @RequestParam String description,
+            @RequestParam Boolean state) {
+        return ResponseEntity.ok(ageGroupService.createAgeGroup(description, state));
+    }
+
 }

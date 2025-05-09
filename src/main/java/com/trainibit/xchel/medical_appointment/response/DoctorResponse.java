@@ -14,5 +14,6 @@ public class DoctorResponse {
     private Timestamp updatedDate;
     private String license;
     private Boolean state;
+    private String specialtyUuid;
 
 }

@@ -13,4 +13,8 @@ public interface AgeGroupService {
     AgeGroupResponse save(AgeGroupRequest ageGroupRequest);
     AgeGroupResponse update(UUID uuid,AgeGroupRequest ageGroupRequest);
     AgeGroupResponse delete(UUID uuid);
+    AgeGroupResponse updateAgeGroup(UUID uuid, String description, Boolean state);
+    AgeGroupResponse createAgeGroup(String description, Boolean state);
+    AgeGroupResponse deleteAgeGroup(UUID uuid);
+
 }

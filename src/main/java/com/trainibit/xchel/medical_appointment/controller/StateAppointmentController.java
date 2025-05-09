@@ -1,6 +1,7 @@
 package com.trainibit.xchel.medical_appointment.controller;
 
 import com.trainibit.xchel.medical_appointment.request.StateAppointmentRequest;
+import com.trainibit.xchel.medical_appointment.response.AgeGroupResponse;
 import com.trainibit.xchel.medical_appointment.response.StateAppointmentResponse;
 import com.trainibit.xchel.medical_appointment.service.StateAppointmentService;
 import jakarta.validation.Valid;
@@ -42,4 +43,12 @@ public class StateAppointmentController {
 public ResponseEntity<StateAppointmentResponse> deleteUser(@PathVariable UUID uuid) {
         return ResponseEntity.status(204).body(stateAppointmentService.delete(uuid));
     }
+    @PutMapping("/procedeupdate/{uuid}")
+    public ResponseEntity<StateAppointmentResponse> updateState(
+            @PathVariable UUID uuid,
+            @RequestParam String description,
+            @RequestParam Boolean state) {
+        return ResponseEntity.ok(stateAppointmentService.updateState(uuid, description, state));
+    }
+
 }

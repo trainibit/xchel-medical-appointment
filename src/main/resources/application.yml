@@ -2,7 +2,7 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
   application:
-    name: fist_api
+    name: medical_appointment
   cache:
     type: redis
   data:

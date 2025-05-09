@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.swing.text.html.parser.Entity;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,5 +43,22 @@ public class MedicalAppointmentController {
     public ResponseEntity<MedicalAppointmentResponse> deleteUser(@PathVariable UUID uuid) {
         return ResponseEntity.status(200).body(medicalAppointmentService.delete(uuid));
     }
+    @PostMapping("/procedecreate")
+    public ResponseEntity<MedicalAppointmentResponse> procedecreate(
+            @RequestParam String scheduledForStr,
+            @RequestParam String reason,
+            @RequestParam String stateAppointmentUuid,
+            @RequestParam String doctorUuid,
+            @RequestParam String assistant,
+            @RequestParam Boolean state) {
+
+        Timestamp scheduledFor = Timestamp.valueOf(scheduledForStr);
+        return ResponseEntity.ok(
+                medicalAppointmentService.createMedicalAppointment(
+                        scheduledFor, reason, stateAppointmentUuid, doctorUuid, assistant, state
+                )
+        );
+    }
+
 }
 

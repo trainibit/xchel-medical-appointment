@@ -7,6 +7,7 @@ import com.trainibit.xchel.medical_appointment.request.AgeGroupRequest;
 import com.trainibit.xchel.medical_appointment.response.AgeGroupResponse;
 import com.trainibit.xchel.medical_appointment.service.AgeGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -21,6 +22,10 @@ public class AgeGroupServiceImpl implements AgeGroupService {
 
     @Autowired
     private AgeGroupMapper ageGroupMapper;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate; // Se mantiene la inyección con @Autowired
+
 
     @Override
     public List<AgeGroupResponse> findAll() {
@@ -62,5 +67,38 @@ public class AgeGroupServiceImpl implements AgeGroupService {
         return ageGroupMapper.entityToResponse(userToDelete);
     }
 
+    @Override
+    public AgeGroupResponse updateAgeGroup(UUID uuid, String description, Boolean state) {
+        String sql = "CALL update_age_group(CAST(? AS UUID), ?, ?)";
+        jdbcTemplate.update(sql, uuid.toString(), description, state);
+
+        AgeGroupResponse response = new AgeGroupResponse();
+        response.setUuid(uuid);
+        response.setDescription(description);
+        response.setState(state);
+
+        return response;
+    }
+
+
+    @Override
+    public AgeGroupResponse createAgeGroup(String description, Boolean state) {
+        String sql = "CALL create_age_group(?, ?)";
+        jdbcTemplate.update(sql, description, state);
+
+        AgeGroupResponse response = new AgeGroupResponse();
+        response.setDescription(description);
+        response.setState(state);
+        return response;
+    }
+
+
+    @Override
+    public AgeGroupResponse deleteAgeGroup(UUID uuid) {
+        String sql = "CALL delete_age_group(CAST(? AS UUID))";
+        jdbcTemplate.update(sql, uuid);
+        AgeGroupResponse response = new AgeGroupResponse();
+        return response;
+    }
 
 }

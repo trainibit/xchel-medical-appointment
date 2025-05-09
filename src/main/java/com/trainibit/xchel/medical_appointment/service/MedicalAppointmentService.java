@@ -4,6 +4,7 @@ import com.trainibit.xchel.medical_appointment.entity.MedicalAppointment;
 import com.trainibit.xchel.medical_appointment.request.MedicalAppointmentRequest;
 import com.trainibit.xchel.medical_appointment.response.MedicalAppointmentResponse;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,4 +14,22 @@ public interface MedicalAppointmentService {
     MedicalAppointmentResponse save(MedicalAppointmentRequest medicalAppointmentRequest);
     MedicalAppointmentResponse update(UUID uuid,MedicalAppointmentRequest medicalAppointmentRequest);
     MedicalAppointmentResponse delete(UUID uuid);
+    MedicalAppointmentResponse createMedicalAppointment(
+            Timestamp scheduledFor,
+            String reason,
+            String stateAppointmentUuid,
+            String doctorUuid,
+            String assistant,
+            Boolean state
+    );
+    MedicalAppointmentResponse updateMedicalAppointment(
+            UUID uuid,
+            Timestamp scheduledFor,
+            String reason,
+            String stateAppointmentUuid,
+            String doctorUuid,
+            String assistant,
+            Boolean state
+    );
+    MedicalAppointmentResponse deleteMedicalAppointment(UUID uuid);
 }

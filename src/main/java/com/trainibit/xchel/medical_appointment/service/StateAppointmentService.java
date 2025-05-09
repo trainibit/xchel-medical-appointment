@@ -1,6 +1,7 @@
 package com.trainibit.xchel.medical_appointment.service;
 
 import com.trainibit.xchel.medical_appointment.request.StateAppointmentRequest;
+import com.trainibit.xchel.medical_appointment.response.AgeGroupResponse;
 import com.trainibit.xchel.medical_appointment.response.StateAppointmentResponse;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface StateAppointmentService {
     StateAppointmentResponse save(StateAppointmentRequest stateAppointmentRequest);
     StateAppointmentResponse update(UUID uuid,StateAppointmentRequest stateAppointmentRequest);
     StateAppointmentResponse delete(UUID uuid);
+    StateAppointmentResponse updateState(UUID uuid, String description, Boolean state);
 }

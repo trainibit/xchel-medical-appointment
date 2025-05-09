@@ -6,9 +6,11 @@ import com.trainibit.xchel.medical_appointment.repository.DoctorRepository;
 import com.trainibit.xchel.medical_appointment.repository.MedicalAppointmentRepository;
 import com.trainibit.xchel.medical_appointment.repository.StateAppointmentRepository;
 import com.trainibit.xchel.medical_appointment.request.MedicalAppointmentRequest;
+import com.trainibit.xchel.medical_appointment.response.DoctorResponse;
 import com.trainibit.xchel.medical_appointment.response.MedicalAppointmentResponse;
 import com.trainibit.xchel.medical_appointment.service.MedicalAppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -24,11 +26,15 @@ public class MedicalAppontmentServiceImpl implements MedicalAppointmentService {
     @Autowired
     private MedicalAppointmentMapper medicalAppointmentMapper;
 
+
     @Autowired
     private StateAppointmentRepository stateAppointmentRepository;
 
     @Autowired
     private DoctorRepository doctorRepository;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate; // Se mantiene la inyección con @Autowired
 
     @Override
     public List<MedicalAppointmentResponse> findAll() {
@@ -100,5 +106,29 @@ public class MedicalAppontmentServiceImpl implements MedicalAppointmentService {
         MedicalAppointment medicalAppointment = medicalAppointmentRepository.findByUuid(uuid);
         medicalAppointmentRepository.delete(medicalAppointment);
         return medicalAppointmentMapper.entityToResponse(medicalAppointment);
+    }
+
+    @Override
+    public MedicalAppointmentResponse createMedicalAppointment(Timestamp scheduledFor, String reason, String stateAppointmentUuid,String doctorUuid, String assistant, Boolean state) {
+        String sql = "CALL create_medical_appointment(?,?,?::uuid,?::uuid,?,?)";
+        jdbcTemplate.update(sql, scheduledFor, reason, stateAppointmentUuid, doctorUuid, assistant, state);
+        MedicalAppointmentResponse response = new MedicalAppointmentResponse();
+        response.setScheduledFor(scheduledFor);
+        response.setReason(reason);
+        response.setState_appointment_id(stateAppointmentUuid);
+        response.setDoctor_id(doctorUuid);
+        response.setAssistant(assistant);
+        response.setState(state);
+        return response;
+    }
+
+    @Override
+    public MedicalAppointmentResponse updateMedicalAppointment(UUID uuid, Timestamp scheduledFor, String reason, String stateAppointmentUuid, String doctorUuid, String assistant, Boolean state) {
+        return null;
+    }
+
+    @Override
+    public MedicalAppointmentResponse deleteMedicalAppointment(UUID uuid) {
+        return null;
     }
 }

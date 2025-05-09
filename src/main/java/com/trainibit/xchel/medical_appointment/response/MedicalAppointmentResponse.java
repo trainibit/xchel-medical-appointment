@@ -14,6 +14,8 @@ public class MedicalAppointmentResponse {
     private Timestamp updatedDate;
     private Timestamp scheduledFor;
     private String reason;
+    private String state_appointment_id;
+    private String doctor_id;
     private String assistant;
     private Boolean state;
 

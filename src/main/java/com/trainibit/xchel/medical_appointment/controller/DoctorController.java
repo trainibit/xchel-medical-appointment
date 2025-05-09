@@ -40,4 +40,24 @@ public class DoctorController {
     public ResponseEntity<DoctorResponse> deleteUser(@PathVariable UUID uuid) {
         return ResponseEntity.ok(doctorService.delete(uuid));
     }
+    @PostMapping("/precedecreate")
+    public ResponseEntity<DoctorResponse> precedecreate(
+            @RequestParam String specialtyUuid,
+            @RequestParam String license,
+            @RequestParam Boolean state) {
+        return ResponseEntity.ok(doctorService.createDoctor(specialtyUuid, license, state));
+    }
+
+    @PutMapping("/procedeupdate/{uuid}")
+    public ResponseEntity<DoctorResponse> procedeupdate(
+            @PathVariable UUID uuid,
+            @RequestParam String specialtyUuid,
+            @RequestParam String license,
+            @RequestParam Boolean state){
+        return ResponseEntity.ok(doctorService.updateDoctor(uuid, specialtyUuid, license, state));
+    }
+    @DeleteMapping("/procededelete/{uuid}")
+    public ResponseEntity<DoctorResponse> deleteDoctor(@PathVariable UUID uuid){
+        return ResponseEntity.ok(doctorService.deleteDoctor(uuid));
+    }
 }

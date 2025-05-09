@@ -6,9 +6,11 @@ import com.trainibit.xchel.medical_appointment.entity.StateAppointment;
 import com.trainibit.xchel.medical_appointment.mapper.StateAppointmentMapper;
 import com.trainibit.xchel.medical_appointment.repository.StateAppointmentRepository;
 import com.trainibit.xchel.medical_appointment.request.StateAppointmentRequest;
+import com.trainibit.xchel.medical_appointment.response.AgeGroupResponse;
 import com.trainibit.xchel.medical_appointment.response.StateAppointmentResponse;
 import com.trainibit.xchel.medical_appointment.service.StateAppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -23,6 +25,8 @@ public class StateAppointmentServiceImpl implements StateAppointmentService {
     @Autowired
     private StateAppointmentMapper stateAppointmentMapper;
 
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Override
     public List<StateAppointmentResponse> findAll() {
@@ -62,5 +66,19 @@ public class StateAppointmentServiceImpl implements StateAppointmentService {
         StateAppointment userToDelete = stateAppointmentRepository.findByUuid(uuid);
         stateAppointmentRepository.delete(userToDelete);
         return stateAppointmentMapper.entityToResponse(userToDelete);
+    }
+
+    @Override
+    public StateAppointmentResponse updateState(UUID uuid, String description, Boolean state) {
+
+        String sql = "CALL proceso_state(CAST(? AS UUID), ?, ?)";
+        jdbcTemplate.update(sql, uuid.toString(), description, state);
+
+        StateAppointmentResponse response = new StateAppointmentResponse();
+        response.setUuid(uuid);
+        response.setDescription(description);
+        response.setState(state);
+
+        return response;
     }
 }
